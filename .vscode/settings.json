@@ -1,0 +1,7 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "/Users/aa/Downloads/javafx-sdk-23.0.1/lib",
+    "/Users/aa/Downloads/jsoup-1.19.1.jar"
+  ]
+}

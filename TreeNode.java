@@ -1,12 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TreeNode {
     private ArrayList<TreeNode> children;
-    private String url;
-    private int value;
+    public String url;
+    public int value;
+    public TreeNode leftChild;
+    public TreeNode rightChild;
 
     public TreeNode(String url, int value) {
-        children = new ArrayList<TreeNode>();
+        this.children = new ArrayList<TreeNode>();
         this.url = url;
         this.value = value;
     }
@@ -15,11 +18,19 @@ public class TreeNode {
         children.add(child);
     }
 
+    public List<TreeNode> getChildren(){
+        return children;
+    }
+
+    public String getUrl(){
+        return this.url;
+    }
+
     public void print() {
         System.out.printf("URL: %s, value: %d\n", url, value);
         if (!children.isEmpty()) {
             System.out.println("Children:");
-            for (TreeNode child : children) {
+            for (TreeNode child : this.children) {
                 child.print();
             }
         }
