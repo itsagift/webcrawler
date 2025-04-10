@@ -5,7 +5,17 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+/**
+ * Class to fetch URLs from www.hunter.cuny.edu, filter URLs, and print relative URLs.
+ *
+ * @author Chase Reynolds, Tess Avitabile
+ */
 public class goal2 {
+    /**
+     * Tests fetching URLs from www.hunter.cuny.edu, filtering URLs, and printing relative URLs.
+     * 
+     * @param args arguments are not used.
+     */
     public static void main(String[] args) throws IOException {
         String url = "http://www.hunter.cuny.edu/";
         print("Fetching %s...", url);
@@ -33,10 +43,23 @@ public class goal2 {
         }
     }
 
+    /**
+     * Formats and prints a string.
+     * 
+     * @param msg the format string
+     * @param args the actual arguments to replace with in the format string
+     */
     private static void print(String msg, Object... args) {
         System.out.println(String.format(msg, args));
     }
 
+    /**
+     * Trims a string to a particular width.
+     * 
+     * @param s the string
+     * @param width the width to trim to
+     * @return the trimmed string
+     */
     private static String trim(String s, int width) {
         if (s.length() > width)
             return s.substring(0, width - 1) + ".";

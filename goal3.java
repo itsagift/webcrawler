@@ -6,7 +6,17 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * Class to fetch URLs from www.hunter.cuny.edu, deduplicate URLs, and build a tree.
+ *
+ * @author Tess Avitabile
+ */
 public class goal3 {
+    /**
+     * Tests fetching URLs from www.hunter.cuny.edu, deduplicating URLs, and building a tree.
+     * 
+     * @param args arguments are not used.
+     */
     public static void main(String[] args) throws IOException {
         String url = "http://www.hunter.cuny.edu/";
 

@@ -9,10 +9,25 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * Class to fetch URLs from www.hunter.cuny.edu, build a 3-layer tree, and traverse
+ * in level order.
+ *
+ * @author Chase Reynolds, Tess Avitabile
+ */
 public class goal4 {
 
+    /**
+     * The prefix for all relative URLs.
+     */
     public static final String urlPrefix = "http://hunter.cuny.edu";
     
+    /**
+     * Performs level order traversal on a tree.
+     * 
+     * @param root the root of the tree
+     * @return a list of lists of URLs, where each list of URLs corresponds to a level
+     */
     static public List<List<String>> levelOrderTraversal(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         List<List<String>> outerList = new LinkedList<List<String>>();
@@ -36,7 +51,15 @@ public class goal4 {
         return outerList;
     }
     
-
+    /**
+     * Builds a URL tree.
+     * 
+     * @param node the node to start with
+     * @param depth the current depth of the tree
+     * @param maxDepth the maximum depth of the tree
+     * @param maxChildren the maximum number of children for each node
+     * @param map a map containing all relative links, in order to check for duplicates
+     */
     public static void buildTree(TreeNode node, int depth, int maxDepth, int maxChildren, HashMap<String, Integer> map) {
         if (depth >= maxDepth) {
             return;
@@ -84,6 +107,12 @@ public class goal4 {
         }
     }
 
+    /**
+     * Tests fetching URLs from www.hunter.cuny.edu, deduplicating URLs, building a 
+     * 3-layer tree, and traversing in level order.
+     * 
+     * @param args arguments are not used.
+     */
     public static void main(String[] args) {
         String url = "http://www.hunter.cuny.edu/";
         try {
