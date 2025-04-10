@@ -3,16 +3,27 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.tree.TreeNode;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class goal4 {
+public class goal5 {
 
     public static final String urlPrefix = "http://hunter.cuny.edu";
-    
+    public static void printDot(TreeNode node, int level) {
+        if (node == null) {
+        return;
+        }
+        String ogNodeLabel = node.relativeUrl == null ? node.url : node.relativeUrl;
+        for (TreeNode child : node.getChildren()){
+            String nodeLabel = child.relativeUrl == null ? child.url : child.relativeUrl;
+            System.out.printf("    \"%s\" -> \"%s\";%n", ogNodeLabel, nodeLabel);
+            printDot(child);
+        }
+    }
     static public List<List<String>> levelOrderTraversal(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         List<List<String>> outerList = new LinkedList<List<String>>();
@@ -69,6 +80,9 @@ public class goal4 {
                 if (linkStr.equals("acert")) {
                     continue;
                 }
+                if (linkStr.contains("#")) {
+                continue;
+                }
                 linkStr = linkStr.substring("hunter.cuny.edu".length());
                 if (!map.containsKey(linkStr)) {
                     map.put(linkStr, value++);
@@ -77,7 +91,6 @@ public class goal4 {
                     buildTree(child, depth + 1, maxDepth, maxChildren, map);
                 }
             }
-
         } catch (Exception e) {
             System.err.println("Error fetching links for URL: " + node.url);
             e.printStackTrace();
@@ -93,12 +106,28 @@ public class goal4 {
 
             List<List<String>> traversalResult = levelOrderTraversal(root);
             System.out.println("Level Order Traversal Result:");
-            for (int i = 0; i < traversalResult.size(); i++) {
-                System.out.printf("\nLevel %d:\n", i);
-                for (String relativeUrl : traversalResult.get(i)) {
-                    System.out.println(relativeUrl);
+            // for (int i = 0; i < traversalResult.size(); i++) {
+            //     System.out.printf("\nLevel %d:\n", i);
+            //     for (String relativeUrl : traversalResult.get(i)) {
+            //         System.out.println(relativeUrl);
+            //     }
+            // }
+            System.out.println("DOT Graph Output:");
+            System.out.println("digraph {");
+            //NOTE: this loop seems to repeat printing nodes
+            for (int i = 0; i < traversalResult.size() - 1; i++) {
+            List<String> currentLevel = traversalResult.get(i);
+            List<String> nextLevel = traversalResult.get(i + 1);
+            for (String parent : currentLevel) {
+                for (String child : nextLevel) {
+                    System.out.printf("    \"%s\" -> \"%s\";%n", parent, child);
                 }
             }
+
+            }
+
+            //NOTE: this is the other function for outputting Dot format but doesn't have level labels
+            printDot(child);
         } catch (Exception e) {
             e.printStackTrace();
         }
